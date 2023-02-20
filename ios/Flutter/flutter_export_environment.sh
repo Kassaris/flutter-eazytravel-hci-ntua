@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=C:\dev\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\dev\appications\startup_eazyTravel\eazy_travel"
+export "FLUTTER_APPLICATION_PATH=C:\dev\applications\startup_easyTravel\eazy_travel"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"
