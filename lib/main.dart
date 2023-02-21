@@ -48,7 +48,7 @@ class _TaskListScreenWidgetState extends State<TaskListScreenWidget> {
       body: Scaffold(
           drawer: CustomDrawerWidget(),
           endDrawer: Padding(
-            padding: EdgeInsets.only(bottom: 250, left: 200),
+            padding: EdgeInsets.only(bottom: 200, left: 200),
             child: CustomEndDrawerWidget(),
           ),
           appBar: AppBar(
@@ -182,116 +182,5 @@ class _TaskListScreenWidgetState extends State<TaskListScreenWidget> {
           ),
           color: Colors.grey),
     );
-  }
-}
-
-class CustomDrawerWidget extends StatelessWidget {
-  const CustomDrawerWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-        backgroundColor: Colors.grey.shade300,
-        child: SingleChildScrollView(
-          child: Container(
-              child: Column(
-            children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(top: 30, bottom: 20),
-                  child: Text(
-                    'MENU',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  )),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Divider(thickness: 1, color: Colors.black)),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Row(children: <Widget>[
-                    Flexible(
-                        child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                                minWidth: double.infinity, minHeight: 50),
-                            child: TextButton.icon(
-                              icon: Icon(Icons.directions_bus,
-                                  color: Colors.black), // Your icon here
-                              label: Text('Search Stations',
-                                  style: TextStyle(
-                                      color: Colors.black)), // Your text here
-                              onPressed: () {},
-                            )))
-                  ])),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Row(children: <Widget>[
-                    Flexible(
-                        child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                                minWidth: double.infinity, minHeight: 50),
-                            child: TextButton.icon(
-                              icon: Icon(Icons.favorite,
-                                  color: Colors.black), // Your icon here
-                              label: Text('My Tickets',
-                                  style: TextStyle(
-                                      color: Colors.black)), // Your text here
-                              onPressed: () {},
-                            )))
-                  ])),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Row(children: <Widget>[
-                    Flexible(
-                        child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                                minWidth: double.infinity, minHeight: 50),
-                            child: TextButton.icon(
-                              icon: Icon(Icons.price_check,
-                                  color: Colors.black), // Your icon here
-                              label: Text('Special Offers',
-                                  style: TextStyle(
-                                      color: Colors.black)), // Your text here
-                              onPressed: () {},
-                            )))
-                  ])),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Flexible(
-                            child: ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                    minWidth: double.infinity, minHeight: 50),
-                                child: TextButton.icon(
-                                  icon: Icon(Icons.rate_review,
-                                      color: Colors.black), // Your icon here
-                                  label: Text(
-                                    'Reviews',
-                                    style: TextStyle(color: Colors.black),
-                                    textAlign: TextAlign.right,
-                                  ), // Your text here
-                                  onPressed: () {},
-                                )))
-                      ])),
-              Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Row(children: <Widget>[
-                    Flexible(
-                        child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                                minWidth: double.infinity, minHeight: 50),
-                            child: TextButton.icon(
-                              icon: Icon(Icons.info_rounded,
-                                  color: Colors.black), // Your icon here
-                              label: Text(
-                                'Terms of Service',
-                                style: TextStyle(color: Colors.black),
-                              ), // Your text here
-                              onPressed: () {},
-                            )))
-                  ])),
-            ],
-          )),
-        ));
   }
 }
