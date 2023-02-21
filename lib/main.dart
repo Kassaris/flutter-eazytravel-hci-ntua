@@ -1,5 +1,6 @@
 import 'package:eazy_travel/page.dart';
 import 'package:flutter/material.dart';
+import 'page2.dart';
 
 void main() {
   runApp(const easyTravel());
@@ -15,14 +16,6 @@ class easyTravel extends StatelessWidget {
       title: 'easyTravel',
       theme: ThemeData(
         // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: TaskListScreenWidget(),
@@ -43,7 +36,7 @@ class _TaskListScreenWidgetState extends State<TaskListScreenWidget> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: TextButton(
           onPressed: () {},
@@ -52,81 +45,107 @@ class _TaskListScreenWidgetState extends State<TaskListScreenWidget> {
                   fontSize: 30, fontFamily: 'Pacifico', color: Colors.black)),
         ),
       ),
-      body: Column(children: [
-        AppBar(
-          backgroundColor: Colors.grey,
-          elevation: 0,
-          centerTitle: true,
-          leading: PopupMenuButton<int>(
-            icon: const Icon(Icons.menu),
-            itemBuilder: (context) => <PopupMenuEntry<int>>[
-              const PopupMenuItem(
-                  child: ListTile(
-                title: Text('Clear All'),
-              )),
-              const PopupMenuItem(
-                  child: ListTile(
-                title: Text('Clear All'),
-              )),
-              const PopupMenuItem(
-                  child: ListTile(
-                title: Text('Clear All'),
-              )),
-              const PopupMenuItem(
-                  child: ListTile(
-                title: Text('Clear All',
-                    style: TextStyle(fontSize: 15, color: Colors.black)),
-              )),
-            ],
+      body: Scaffold(
+          drawer: CustomDrawerWidget(),
+          endDrawer: Padding(
+            padding: EdgeInsets.only(bottom: 250, left: 200),
+            child: CustomEndDrawerWidget(),
           ),
-          actions: <Widget>[
-            IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.settings_rounded),
-                tooltip: 'Nfc Mode'),
-          ],
-          title: Text("Home"),
-        ),
-        Form(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+          appBar: AppBar(
+            backgroundColor: Colors.grey,
+            elevation: 0,
+            centerTitle: true,
+            leading: Padding(
+                padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                child: Builder(builder: (BuildContext context) {
+                  return IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  );
+                })),
+
+            /*Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
+                child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.settings_rounded),
+                    tooltip: 'Nfc Mode'),
+              )
+            ],
+                               PopupMenuButton<int>(
+                      icon: const Icon(Icons.settings_rounded),
+                      itemBuilder: (context) => <PopupMenuEntry<int>>[
+                            const PopupMenuItem(
+                                child: ListTile(
+                              title: Text('Clear All'),
+                            )),
+                            
+                            const PopupMenuItem(
+                                child: ListTile(
+                              title: Text('Clear All'),
+                            )),
+                            const PopupMenuItem(
+                                child: ListTile(
+                              title: Text('Clear All'),
+                            )),
+                            const PopupMenuItem(
+                                child: ListTile(
+                              title: Text('Clear All',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black)),
+                            )),
+                          ])*/
+            actions: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(40.0),
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        hintText: 'Departure',
-                        border: OutlineInputBorder(borderSide: BorderSide())),
-                  )),
-              Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        hintText: 'Destination',
-                        border: OutlineInputBorder(borderSide: BorderSide())),
-                  )),
-              Center(
-                  child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              Colors.deepPurple.shade900)),
-                      onPressed: () => {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ViewEditTaskWidget()))
-                          },
-                      child: const Text(
-                        'Search',
-                      )),
-                ],
-              ))
-            ]))
-      ]),
+                  padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
+                  child: Builder(builder: (BuildContext context) {
+                    return IconButton(
+                      icon: Icon(Icons.settings_rounded),
+                      onPressed: () => Scaffold.of(context).openEndDrawer(),
+                    );
+                  }))
+            ],
+            title: Text("Home"),
+          ),
+          body: Form(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(40.0),
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: 'Departure',
+                          border: OutlineInputBorder(borderSide: BorderSide())),
+                    )),
+                Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: 'Destination',
+                          border: OutlineInputBorder(borderSide: BorderSide())),
+                    )),
+                Center(
+                    child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.deepPurple.shade900)),
+                        onPressed: () => {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ViewEditTaskWidget()))
+                            },
+                        child: const Text(
+                          'Search',
+                        )),
+                  ],
+                ))
+              ]))),
       bottomNavigationBar: BottomAppBar(
           height: 70,
           child: Row(
@@ -163,5 +182,116 @@ class _TaskListScreenWidgetState extends State<TaskListScreenWidget> {
           ),
           color: Colors.grey),
     );
+  }
+}
+
+class CustomDrawerWidget extends StatelessWidget {
+  const CustomDrawerWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+        backgroundColor: Colors.grey.shade300,
+        child: SingleChildScrollView(
+          child: Container(
+              child: Column(
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(top: 30, bottom: 20),
+                  child: Text(
+                    'MENU',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Divider(thickness: 1, color: Colors.black)),
+              Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Row(children: <Widget>[
+                    Flexible(
+                        child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                                minWidth: double.infinity, minHeight: 50),
+                            child: TextButton.icon(
+                              icon: Icon(Icons.directions_bus,
+                                  color: Colors.black), // Your icon here
+                              label: Text('Search Stations',
+                                  style: TextStyle(
+                                      color: Colors.black)), // Your text here
+                              onPressed: () {},
+                            )))
+                  ])),
+              Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Row(children: <Widget>[
+                    Flexible(
+                        child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                                minWidth: double.infinity, minHeight: 50),
+                            child: TextButton.icon(
+                              icon: Icon(Icons.favorite,
+                                  color: Colors.black), // Your icon here
+                              label: Text('My Tickets',
+                                  style: TextStyle(
+                                      color: Colors.black)), // Your text here
+                              onPressed: () {},
+                            )))
+                  ])),
+              Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Row(children: <Widget>[
+                    Flexible(
+                        child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                                minWidth: double.infinity, minHeight: 50),
+                            child: TextButton.icon(
+                              icon: Icon(Icons.price_check,
+                                  color: Colors.black), // Your icon here
+                              label: Text('Special Offers',
+                                  style: TextStyle(
+                                      color: Colors.black)), // Your text here
+                              onPressed: () {},
+                            )))
+                  ])),
+              Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                            child: ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                    minWidth: double.infinity, minHeight: 50),
+                                child: TextButton.icon(
+                                  icon: Icon(Icons.rate_review,
+                                      color: Colors.black), // Your icon here
+                                  label: Text(
+                                    'Reviews',
+                                    style: TextStyle(color: Colors.black),
+                                    textAlign: TextAlign.right,
+                                  ), // Your text here
+                                  onPressed: () {},
+                                )))
+                      ])),
+              Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Row(children: <Widget>[
+                    Flexible(
+                        child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                                minWidth: double.infinity, minHeight: 50),
+                            child: TextButton.icon(
+                              icon: Icon(Icons.info_rounded,
+                                  color: Colors.black), // Your icon here
+                              label: Text(
+                                'Terms of Service',
+                                style: TextStyle(color: Colors.black),
+                              ), // Your text here
+                              onPressed: () {},
+                            )))
+                  ])),
+            ],
+          )),
+        ));
   }
 }
