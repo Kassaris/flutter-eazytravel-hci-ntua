@@ -1,3 +1,4 @@
+import 'package:eazy_travel/ToSpage.dart';
 import 'package:flutter/material.dart';
 
 class CustomEndDrawerWidget extends StatefulWidget {
@@ -200,7 +201,14 @@ class CustomDrawerWidget extends StatelessWidget {
                                 'Terms of Service',
                                 style: TextStyle(color: Colors.black),
                               ), // Your text here
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TOSscreenWidget()),
+                                );
+                              },
                             )))
                   ])),
             ],
