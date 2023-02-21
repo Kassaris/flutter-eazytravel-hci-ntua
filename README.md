@@ -1,5 +1,7 @@
 # eazy_travel
 
+Semester project for hci-ece-ntua class
+
 A new Flutter project.
 
 ## Getting Started

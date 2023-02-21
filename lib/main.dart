@@ -1,115 +1,185 @@
+import 'package:eazy_travel/page.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_login/animated_login.dart';
+import 'page2.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const easyTravel());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class easyTravel extends StatelessWidget {
+  const easyTravel({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const LoginScreen(
-      child: MaterialApp(),
+    return MaterialApp(
+      title: 'easyTravel',
+      theme: ThemeData(
+        // This is the theme of your application.
+        primarySwatch: Colors.blue,
+      ),
+      home: TaskListScreenWidget(),
     );
   }
 }
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-  /// Simulates the multilanguage, you will implement your own logic.
-  /// According to the current language, you can display a text message
-  /// with the help of [LoginTexts] class.
-  final String langCode = 'en';
+class TaskListScreenWidget extends StatefulWidget {
+  const TaskListScreenWidget({Key? key}) : super(key: key);
 
   @override
+  _TaskListScreenWidgetState createState() => _TaskListScreenWidgetState();
+}
+
+class _TaskListScreenWidgetState extends State<TaskListScreenWidget> {
+  @override
   Widget build(BuildContext context) {
-    return AnimatedLogin(
-      onLogin: onLogin,
-      onSignup: onSignup,
-      onForgotPassword: onForgotPassword,
-      formWidthRatio: 60,
-      // backgroundImage: 'images/background_image.jpg',
-      signUpMode: SignUpModes.both,
-      socialLogins: _socialLogins,
-      loginTheme: _loginTheme,
-      loginTexts: _loginTexts,
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: TextButton(
+          onPressed: () {},
+          child: Text('eazyTravel',
+              style: TextStyle(
+                  fontSize: 30, fontFamily: 'Pacifico', color: Colors.black)),
+        ),
+      ),
+      body: Scaffold(
+          drawer: CustomDrawerWidget(),
+          endDrawer: Padding(
+            padding: EdgeInsets.only(bottom: 200, left: 200),
+            child: CustomEndDrawerWidget(),
+          ),
+          appBar: AppBar(
+            backgroundColor: Colors.grey,
+            elevation: 0,
+            centerTitle: true,
+            leading: Padding(
+                padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                child: Builder(builder: (BuildContext context) {
+                  return IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  );
+                })),
+
+            /*Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
+                child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.settings_rounded),
+                    tooltip: 'Nfc Mode'),
+              )
+            ],
+                               PopupMenuButton<int>(
+                      icon: const Icon(Icons.settings_rounded),
+                      itemBuilder: (context) => <PopupMenuEntry<int>>[
+                            const PopupMenuItem(
+                                child: ListTile(
+                              title: Text('Clear All'),
+                            )),
+                            
+                            const PopupMenuItem(
+                                child: ListTile(
+                              title: Text('Clear All'),
+                            )),
+                            const PopupMenuItem(
+                                child: ListTile(
+                              title: Text('Clear All'),
+                            )),
+                            const PopupMenuItem(
+                                child: ListTile(
+                              title: Text('Clear All',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black)),
+                            )),
+                          ])*/
+            actions: <Widget>[
+              Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
+                  child: Builder(builder: (BuildContext context) {
+                    return IconButton(
+                      icon: Icon(Icons.settings_rounded),
+                      onPressed: () => Scaffold.of(context).openEndDrawer(),
+                    );
+                  }))
+            ],
+            title: Text("Home"),
+          ),
+          body: Form(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(40.0),
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: 'Departure',
+                          border: OutlineInputBorder(borderSide: BorderSide())),
+                    )),
+                Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: 'Destination',
+                          border: OutlineInputBorder(borderSide: BorderSide())),
+                    )),
+                Center(
+                    child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Colors.deepPurple.shade900)),
+                        onPressed: () => {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ViewEditTaskWidget()))
+                            },
+                        child: const Text(
+                          'Search',
+                        )),
+                  ],
+                ))
+              ]))),
+      bottomNavigationBar: BottomAppBar(
+          height: 70,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
+                  child: SizedBox(
+                      height: 50.0,
+                      width: 50.0,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.account_circle_sharp,
+                              size: 30.0)))),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
+                  child: SizedBox(
+                      height: 50.0,
+                      width: 50.0,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.home, size: 30.0)))),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
+                  child: SizedBox(
+                      height: 50.0,
+                      width: 50.0,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.circle_notifications,
+                              size: 30.0)))),
+            ],
+          ),
+          color: Colors.grey),
     );
-  }
-
-  /// You can adjust the colors, text styles, button styles, borders
-  /// according to your design preferences.
-  /// You can also set some additional display options such as [showLabelTexts].
-  LoginTheme get _loginTheme => LoginTheme(
-        // showLabelTexts: false,
-        backgroundColor: Colors.blue, // const Color(0xFF6666FF),
-        formFieldBackgroundColor: Colors.white,
-        changeActionTextStyle: const TextStyle(color: Colors.white),
-      );
-
-  LoginTexts get _loginTexts => LoginTexts(
-        nameHint: _username,
-        login: _login,
-        signUp: _signup,
-      );
-
-  /// You can adjust the texts in the screen according to the current language
-  /// With the help of [LoginTexts], you can create a multilanguage scren.
-  String get _username => langCode == 'tr' ? 'Kullanıcı Adı' : 'Username';
-  String get _login => langCode == 'tr' ? 'Giriş Yap' : 'Login';
-  String get _signup => langCode == 'tr' ? 'Kayıt Ol' : 'Sign Up';
-
-  /// Social login options, you should provide callback function and icon path.
-  /// Icon paths should be the full path in the assets
-  /// Don't forget to also add the icon folder to the "pubspec.yaml" file.
-  List<SocialLogin> get _socialLogins => <SocialLogin>[
-        SocialLogin(
-            callback: () async => socialLogin('Google'),
-            iconPath: 'images/google.png'),
-        SocialLogin(
-            callback: () async => socialLogin('Facebook'),
-            iconPath: 'images/facebook.png'),
-        SocialLogin(
-            callback: () async => socialLogin('Linkedin'),
-            iconPath: 'images/linkedin.png'),
-      ];
-
-  /// Login action that will be performed on click to action button in login mode.
-  Future<String?> onLogin(LoginData loginData) async {
-    await Future.delayed(const Duration(seconds: 2));
-    print("""
-    Successfully logged in.\n
-    Email: ${loginData.email}\n
-    Password: ${loginData.password}""");
-    return null;
-  }
-
-  /// Sign up action that will be performed on click to action button in sign up mode.
-  Future<String?> onSignup(SignUpData signupData) async {
-    await Future.delayed(const Duration(seconds: 2));
-    print("""
-    Successfully signed up.\n
-    Username: ${signupData.name}\n
-    Email: ${signupData.email}\n
-    Password: ${signupData.password}\n
-    Confirm Password: ${signupData.confirmPassword}""");
-    return null;
-  }
-
-  /// Action that will be performed on click to "Forgot Password?" text/CTA.
-  /// Probably you will navigate user to a page to create a new password after the verification.
-  Future<String?> onForgotPassword(String email) async {
-    await Future.delayed(const Duration(seconds: 2));
-    print('Successfully navigated. Email is $email');
-    return null;
-  }
-
-  /// Social login callback example.
-  Future<String?> socialLogin(String type) async {
-    await Future.delayed(const Duration(seconds: 2));
-    print('Successfully logged in with $type.');
-    return null;
   }
 }
