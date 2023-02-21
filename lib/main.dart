@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animated_login/animated_login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,109 +8,108 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return const LoginScreen(
+      child: MaterialApp(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  /// Simulates the multilanguage, you will implement your own logic.
+  /// According to the current language, you can display a text message
+  /// with the help of [LoginTexts] class.
+  final String langCode = 'en';
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return AnimatedLogin(
+      onLogin: onLogin,
+      onSignup: onSignup,
+      onForgotPassword: onForgotPassword,
+      formWidthRatio: 60,
+      // backgroundImage: 'images/background_image.jpg',
+      signUpMode: SignUpModes.both,
+      socialLogins: _socialLogins,
+      loginTheme: _loginTheme,
+      loginTexts: _loginTexts,
     );
+  }
+
+  /// You can adjust the colors, text styles, button styles, borders
+  /// according to your design preferences.
+  /// You can also set some additional display options such as [showLabelTexts].
+  LoginTheme get _loginTheme => LoginTheme(
+        // showLabelTexts: false,
+        backgroundColor: Colors.blue, // const Color(0xFF6666FF),
+        formFieldBackgroundColor: Colors.white,
+        changeActionTextStyle: const TextStyle(color: Colors.white),
+      );
+
+  LoginTexts get _loginTexts => LoginTexts(
+        nameHint: _username,
+        login: _login,
+        signUp: _signup,
+      );
+
+  /// You can adjust the texts in the screen according to the current language
+  /// With the help of [LoginTexts], you can create a multilanguage scren.
+  String get _username => langCode == 'tr' ? 'Kullanıcı Adı' : 'Username';
+  String get _login => langCode == 'tr' ? 'Giriş Yap' : 'Login';
+  String get _signup => langCode == 'tr' ? 'Kayıt Ol' : 'Sign Up';
+
+  /// Social login options, you should provide callback function and icon path.
+  /// Icon paths should be the full path in the assets
+  /// Don't forget to also add the icon folder to the "pubspec.yaml" file.
+  List<SocialLogin> get _socialLogins => <SocialLogin>[
+        SocialLogin(
+            callback: () async => socialLogin('Google'),
+            iconPath: 'images/google.png'),
+        SocialLogin(
+            callback: () async => socialLogin('Facebook'),
+            iconPath: 'images/facebook.png'),
+        SocialLogin(
+            callback: () async => socialLogin('Linkedin'),
+            iconPath: 'images/linkedin.png'),
+      ];
+
+  /// Login action that will be performed on click to action button in login mode.
+  Future<String?> onLogin(LoginData loginData) async {
+    await Future.delayed(const Duration(seconds: 2));
+    print("""
+    Successfully logged in.\n
+    Email: ${loginData.email}\n
+    Password: ${loginData.password}""");
+    return null;
+  }
+
+  /// Sign up action that will be performed on click to action button in sign up mode.
+  Future<String?> onSignup(SignUpData signupData) async {
+    await Future.delayed(const Duration(seconds: 2));
+    print("""
+    Successfully signed up.\n
+    Username: ${signupData.name}\n
+    Email: ${signupData.email}\n
+    Password: ${signupData.password}\n
+    Confirm Password: ${signupData.confirmPassword}""");
+    return null;
+  }
+
+  /// Action that will be performed on click to "Forgot Password?" text/CTA.
+  /// Probably you will navigate user to a page to create a new password after the verification.
+  Future<String?> onForgotPassword(String email) async {
+    await Future.delayed(const Duration(seconds: 2));
+    print('Successfully navigated. Email is $email');
+    return null;
+  }
+
+  /// Social login callback example.
+  Future<String?> socialLogin(String type) async {
+    await Future.delayed(const Duration(seconds: 2));
+    print('Successfully logged in with $type.');
+    return null;
   }
 }
