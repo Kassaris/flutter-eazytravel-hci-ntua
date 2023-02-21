@@ -1,5 +1,6 @@
 import 'package:eazy_travel/ToSpage.dart';
 import 'package:flutter/material.dart';
+import 'nfc.dart';
 
 class CustomEndDrawerWidget extends StatefulWidget {
   const CustomEndDrawerWidget({Key? key}) : super(key: key);
@@ -184,7 +185,14 @@ class CustomDrawerWidget extends StatelessWidget {
                                     style: TextStyle(color: Colors.black),
                                     textAlign: TextAlign.right,
                                   ), // Your text here
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MyHomePage(title: "srg")),
+                                    );
+                                  },
                                 )))
                       ])),
               Padding(

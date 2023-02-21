@@ -1,8 +1,14 @@
 import 'package:eazy_travel/page.dart';
 import 'package:flutter/material.dart';
 import 'page2.dart';
+import 'package:nfc_manager/nfc_manager.dart';
+import 'dart:convert' show utf8;
+
+bool isNfcAvalible = true;
 
 void main() {
+  //WidgetsFlutterBinding.ensureInitialized(); // Required for the line below
+  //isNfcAvalible = await NfcManager.instance.isAvailable();
   runApp(const easyTravel());
 }
 
@@ -15,7 +21,7 @@ class easyTravel extends StatelessWidget {
       title: 'easyTravel',
       theme: ThemeData(
         // This is the theme of your application.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       home: TaskListScreenWidget(),
     );
@@ -62,38 +68,6 @@ class _TaskListScreenWidgetState extends State<TaskListScreenWidget> {
                     onPressed: () => Scaffold.of(context).openDrawer(),
                   );
                 })),
-
-            /*Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.settings_rounded),
-                    tooltip: 'Nfc Mode'),
-              )
-            ],
-                               PopupMenuButton<int>(
-                      icon: const Icon(Icons.settings_rounded),
-                      itemBuilder: (context) => <PopupMenuEntry<int>>[
-                            const PopupMenuItem(
-                                child: ListTile(
-                              title: Text('Clear All'),
-                            )),
-                            
-                            const PopupMenuItem(
-                                child: ListTile(
-                              title: Text('Clear All'),
-                            )),
-                            const PopupMenuItem(
-                                child: ListTile(
-                              title: Text('Clear All'),
-                            )),
-                            const PopupMenuItem(
-                                child: ListTile(
-                              title: Text('Clear All',
-                                  style: TextStyle(
-                                      fontSize: 15, color: Colors.black)),
-                            )),
-                          ])*/
             actions: <Widget>[
               Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
@@ -104,7 +78,7 @@ class _TaskListScreenWidgetState extends State<TaskListScreenWidget> {
                     );
                   }))
             ],
-            title: Text("Home"),
+            title: Text("HOME"),
           ),
           body: Form(
               child: Column(
