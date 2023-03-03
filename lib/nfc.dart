@@ -1,10 +1,8 @@
-import 'package:eazy_travel/ToSpage.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'dart:convert' show utf8;
 import 'main.dart';
-import 'page2.dart';
 
 /// Global flag if NFC is avalible
 
@@ -42,34 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Scaffold(
-        drawer: CustomDrawerWidget(),
-        endDrawer: Padding(
-          padding: EdgeInsets.only(bottom: 200, left: 200),
-          child: CustomEndDrawerWidget(),
-        ),
         appBar: AppBar(
           backgroundColor: Colors.grey,
           elevation: 0,
           centerTitle: true,
-          leading: Padding(
-              padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
-              child: Builder(builder: (BuildContext context) {
-                return IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                );
-              })),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
-                child: Builder(builder: (BuildContext context) {
-                  return IconButton(
-                    icon: Icon(Icons.settings_rounded),
-                    onPressed: () => Scaffold.of(context).openEndDrawer(),
-                  );
-                }))
-          ],
-          title: Text("NFC"),
+          title: Text("Scan Ticket"),
         ),
         body: Center(
           child: Column(
@@ -86,32 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
-                  child: SizedBox(
-                      height: 50.0,
-                      width: 50.0,
+              Flexible(
+                  fit: FlexFit.tight,
+                  child: Center(
                       child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.account_circle_sharp,
-                              size: 30.0)))),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
-                  child: SizedBox(
-                      height: 50.0,
-                      width: 50.0,
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.home, size: 30.0)))),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
-                  child: SizedBox(
-                      height: 50.0,
-                      width: 50.0,
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.circle_notifications,
-                              size: 30.0)))),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(Icons.home, size: 30)))),
             ],
           ),
           color: Colors.grey),
@@ -125,6 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextButton(
+            style: TextButton.styleFrom(
+                foregroundColor: Colors.deepPurple.shade900),
             onPressed: nfcRunning ? null : _listenForNFCEvents,
             child: Text(true
                 ? listenerRunning
@@ -133,6 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 : 'yerj'),
           ),
           TextButton(
+            style: TextButton.styleFrom(
+                foregroundColor: Colors.deepPurple.shade900),
             onPressed: writeSerialNumber ? null : _writeNfcTag,
             child: Text(writeSerialNumber
                 ? 'Waiting for ticket to be scanned'
@@ -141,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       );
     } else
-      return Text('null');
+      return Text('Turn NFC on');
   }
 
   //quick message

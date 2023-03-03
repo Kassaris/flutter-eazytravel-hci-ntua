@@ -1,6 +1,7 @@
 import 'package:eazy_travel/page.dart';
 import 'package:flutter/material.dart';
 import 'page2.dart';
+import 'page.dart';
 
 void main() {
   runApp(const easyTravel());
@@ -45,16 +46,16 @@ class _TOSscreen extends State<TOSscreenWidget> {
           ),
         ),
         body: Scaffold(
-          drawer: CustomDrawerWidget(),
-          endDrawer: Padding(
-            padding: EdgeInsets.only(bottom: 200, left: 200),
-            child: CustomEndDrawerWidget(),
-          ),
+          // drawer: CustomDrawerWidget(),
+          //  endDrawer: Padding(
+          //   padding: EdgeInsets.only(bottom: 200, left: 200),
+          //    child: CustomEndDrawerWidget(),
+          //  ),
           appBar: AppBar(
             backgroundColor: Colors.grey,
             elevation: 0,
             centerTitle: true,
-            leading: Padding(
+            /*  leading: Padding(
                 padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
                 child: Builder(builder: (BuildContext context) {
                   return IconButton(
@@ -71,7 +72,7 @@ class _TOSscreen extends State<TOSscreenWidget> {
                       onPressed: () => Scaffold.of(context).openEndDrawer(),
                     );
                   }))
-            ],
+            ],*/
             title: Text("Terms of Service"),
           ),
           body: Center(
@@ -113,12 +114,27 @@ class _TOSscreen extends State<TOSscreenWidget> {
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       Colors.deepPurple.shade200)),
-                              onPressed: () => {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ViewEditTaskWidget()))
-                                  },
+                              onPressed: () => showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title:
+                                          const Text('You have been scammed'),
+                                      content: const Text(
+                                          'You agreed to give us 10,000\$ from your personal bank account. '),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          style: TextButton.styleFrom(
+                                            foregroundColor:
+                                                Colors.deepPurple.shade900,
+                                          ),
+                                          onPressed: () => Navigator.pop(
+                                              context, 'I Undestand'),
+                                          child: const Text('I Understand'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                               child: const Text(
                                 'I Disagree',
                               )),
@@ -129,12 +145,7 @@ class _TOSscreen extends State<TOSscreenWidget> {
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       Colors.deepPurple.shade900)),
-                              onPressed: () => {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ViewEditTaskWidget()))
-                                  },
+                              onPressed: () => {Navigator.pop(context)},
                               child: const Text(
                                 'I Agree',
                               ))
@@ -148,32 +159,14 @@ class _TOSscreen extends State<TOSscreenWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
-                      child: SizedBox(
-                          height: 50.0,
-                          width: 50.0,
+                  Flexible(
+                      fit: FlexFit.tight,
+                      child: Center(
                           child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.account_circle_sharp,
-                                  size: 30.0)))),
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
-                      child: SizedBox(
-                          height: 50.0,
-                          width: 50.0,
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.home, size: 30.0)))),
-                  Padding(
-                      padding: EdgeInsets.fromLTRB(50.0, 0, 50.0, 0),
-                      child: SizedBox(
-                          height: 50.0,
-                          width: 50.0,
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.circle_notifications,
-                                  size: 30.0)))),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(Icons.home, size: 30)))),
                 ],
               ),
               color: Colors.grey),
