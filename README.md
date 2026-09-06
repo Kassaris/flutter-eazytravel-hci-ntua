@@ -194,21 +194,23 @@ sdk: '>=2.19.2 <3.0.0'
 Therefore, running the project with a substantially newer Flutter/Dart toolchain may require dependency and source-code updates.
 
 Clone the Repository
+``` bash
 git clone https://github.com/Kassaris/flutter-eazytravel-hci-ntua.git
-
+```
 Move into the project:
-
+``` bash
 cd flutter-eazytravel-hci-ntua
+```
 Install Dependencies
 
 Run:
-
+``` bash
 flutter pub get
-
+```
 To inspect the environment:
-
+``` bash
 flutter doctor
-
+```
 Resolve any Android/iOS SDK issues reported by Flutter before continuing.
 
 ## Running the Application
@@ -216,17 +218,17 @@ Resolve any Android/iOS SDK issues reported by Flutter before continuing.
 Connect a physical device or start an emulator.
 
 Check available devices:
-
+``` bash
 flutter devices
-
+```
 Then run:
-
+``` bash
 flutter run
-
+```
 For a specific device:
-
+``` bash
 flutter run -d <device-id>
-
+```
 ## Hardware Requirements
 
 Some features require a physical device:
