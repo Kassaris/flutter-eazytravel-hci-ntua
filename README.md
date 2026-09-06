@@ -175,7 +175,7 @@ Install dependencies:
 flutter pub get
 ```
 
-##Installation
+## Installation
 Prerequisites
 
 Before running the project, install:
