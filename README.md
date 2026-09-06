@@ -7,6 +7,7 @@ The project focuses on building a simple, intuitive transportation experience wh
 ## Contributors
 
 **Nikolaos Kassaris**
+
 **Kontsantinos Vougias**
 
 
